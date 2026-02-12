@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+	<LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+		<EditText
+            android:id="@+id/editSearchFriends"
+            android:hint="Search by name..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"/>
+
+		<ListView
+            android:id="@+id/listFriendsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+	</LinearLayout>
+
+	<TextView
+        android:id="@+id/textEmptyState"
+        android:text="No friends found."
+        android:textSize="18sp"
+        android:textColor="#AAAAAA"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</FrameLayout>

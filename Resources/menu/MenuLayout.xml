@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+        android:id="@+id/nav_start"
+        android:title="Start Page"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_signin"
+        android:title="Sign In"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_signup"
+        android:title="Sign Up"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_home"
+        android:title="Home Page"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_user_search"
+        android:title="Search Users"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_map"
+        android:title="Friends Map"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_profile"
+        android:title="My Profile"
+        app:showAsAction="never" />
+
+	<item
+        android:id="@+id/nav_logout"
+        android:title="Log Out"
+        app:showAsAction="never" />
+
+</menu>
