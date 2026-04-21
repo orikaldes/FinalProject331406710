@@ -2,6 +2,7 @@
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\Card.cs =====
 
+
 namespace FinalProject331406710.Engine
 {
     public class Card
@@ -24,6 +25,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\Deck.cs =====
+
 
 using System;
 using System.Collections.Generic;
@@ -74,6 +76,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\Enums.cs =====
+
 
 namespace FinalProject331406710.Engine
 {
@@ -146,6 +149,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\GameManager.cs =====
 
+
 using System.Collections.Generic;
 using System.Linq;
 
@@ -212,6 +216,13 @@ namespace FinalProject331406710.Engine
             foreach (var player in Players)
             {
                 player.ResetForNewHand();
+
+                // --- NEW: Bot Auto-Rebuy to keep the game alive ---
+                if (player.Stack <= 0 && player.Name != "Player")
+                {
+                    player.Stack = 1000;
+                }
+
                 player.HoleCards.Add(Deck.Deal());
                 player.HoleCards.Add(Deck.Deal());
             }
@@ -384,6 +395,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\HandEvaluator.cs =====
+
 
 using System.Collections.Generic;
 using System.Linq;
@@ -572,6 +584,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\HandRank.cs =====
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -623,6 +636,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\Player.cs =====
+
 
 using Android.App;
 using Android.Content;
@@ -693,6 +707,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Engine\UserWallet.cs =====
 
+
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -716,6 +731,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Properties\AndroidManifest.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.finalproject331406710">
@@ -761,6 +777,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\button_circle_check.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
@@ -769,6 +786,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\button_circle_fold.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -779,6 +797,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\button_circle_raise.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
@@ -787,6 +806,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\card_background.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -804,6 +824,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\card_back_red.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
@@ -819,6 +840,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\ic_default_avatar.xml =====
+
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="200dp"
@@ -836,6 +858,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\ic_eye_hidden.xml =====
 
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
@@ -848,6 +871,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\ic_eye_visible.xml =====
+
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
@@ -862,6 +886,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\ic_red_dot.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
@@ -870,6 +895,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\drawable\winner_glow.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
@@ -881,6 +907,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\activity_main.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -936,6 +963,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\buyin_dialog.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -990,6 +1018,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\dialog_change_password.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -1042,6 +1071,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\ForgotPasswordLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1118,6 +1148,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\FragmentListLayout.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -1164,6 +1195,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\FriendListItemLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1242,6 +1274,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\FriendsPageLayout.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -1275,6 +1308,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\HomePageLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -1325,12 +1359,23 @@ namespace FinalProject331406710.Engine
             android:layout_height="wrap_content" />
 
 		<Button
-            android:id="@+id/btnPlayPoker"
-            android:text="Play Poker"
-            android:textSize="20sp"
+            android:id="@+id/btnOfflinePoker"
+            android:text="Play Offline (Bots)"
+            android:textSize="18sp"
             android:backgroundTint="#b30000"
             android:textColor="#FFFFFF"
-            android:padding="15dp"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+		<Button
+            android:id="@+id/btnOnlinePoker"
+            android:text="Play Online"
+            android:textSize="18sp"
+            android:backgroundTint="#0000b3"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -1339,7 +1384,7 @@ namespace FinalProject331406710.Engine
             android:text="Tutorial"
             android:backgroundTint="#222222"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -1366,6 +1411,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\PokerGameLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -1591,6 +1637,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\ProfileLayout.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1806,6 +1853,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\raise_dialog.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -1847,6 +1895,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\SignInLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -1935,6 +1984,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\SignUpLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -2054,6 +2104,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\StatisticsLayout.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -2141,6 +2192,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\trivia_layout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -2312,6 +2364,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\tutorial_layout.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
@@ -2416,6 +2469,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\UserListItemLayout.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -2439,6 +2493,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\layout\UserSearchLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -2556,6 +2611,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\menu\game_menu.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -2567,6 +2623,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\menu\MenuLayout.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
@@ -2587,6 +2644,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\mipmap-anydpi-v26\ic_launcher.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
     <background android:drawable="@color/ic_launcher_background"/>
@@ -2595,6 +2653,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\mipmap-anydpi-v26\ic_launcher_round.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
@@ -2605,6 +2664,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\values\ic_launcher_background.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#2C3E50</color>
@@ -2612,6 +2672,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\values\styles.xml =====
+
 
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -2653,6 +2714,7 @@ namespace FinalProject331406710.Engine
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Resources\xml\file_paths.xml =====
 
+
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
 	<external-files-path name="my_images" path="Pictures" />
@@ -2660,6 +2722,7 @@ namespace FinalProject331406710.Engine
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Base.cs =====
+
 
 using Android.App;
 using Android.Content;
@@ -2770,6 +2833,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\EmailHelper.cs =====
 
+
 #pragma warning disable CS0618 // Suppress SmtpClient warning
 
 using System;
@@ -2822,6 +2886,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\ForgotPasswordActivity.cs =====
+
 
 // --- FIX: Suppress the obsolete warning for SmtpClient ---
 #pragma warning disable CS0618 
@@ -2944,6 +3009,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\FriendFragments.cs =====
+
 
 using Android.OS; // System android tools
 using Android.Views; // Tools for handling screens and views
@@ -3101,48 +3167,49 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\FriendNotificationReceiver.cs =====
 
+
 using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
 using System.Linq;
+using System.Threading.Tasks; // NEW: Required for Background Threads
 
 namespace FinalProject331406710
 {
-    // The attribute registers this receiver in the Android OS automatically
     [BroadcastReceiver(Enabled = true, Exported = false)]
     public class FriendNotificationReceiver : BroadcastReceiver
     {
         public override void OnReceive(Context context, Intent intent)
         {
-            var prefs = context.GetSharedPreferences("user_prefs", FileCreationMode.Private);
-            string myId = prefs.GetString("CURRENTLY_LOGGED_IN_ID", "");
-
-            if (string.IsNullOrEmpty(myId)) return;
-
-            // 1. Read Current Database Stats
-            int currentRequestsCount = Helper.GetPendingRequests(context, myId).Count;
-            int currentFriendsCount = Helper.GetMyFriends(context, myId).Count;
-
-            // 2. Read Previous Stats (Defaults to current if it's the very first time running)
-            int lastRequestsCount = prefs.GetInt("LAST_REQUEST_COUNT", currentRequestsCount);
-            int lastFriendsCount = prefs.GetInt("LAST_FRIEND_COUNT", currentFriendsCount);
-
-            // 3. Logic Check: Did the numbers go up?
-            if (currentRequestsCount > lastRequestsCount)
+            // --- FIX: Run the heavy database logic on a background thread! ---
+            Task.Run(() =>
             {
-                ShowNotification(context, "New Friend Request!", $"You have {currentRequestsCount} pending requests waiting.", 1001);
-            }
+                var prefs = context.GetSharedPreferences("user_prefs", FileCreationMode.Private);
+                string myId = prefs.GetString("CURRENTLY_LOGGED_IN_ID", "");
 
-            if (currentFriendsCount > lastFriendsCount)
-            {
-                ShowNotification(context, "Friend Request Accepted!", "You have a new friend in your list.", 1002);
-            }
+                if (string.IsNullOrEmpty(myId)) return;
 
-            // 4. Save the new counts so we don't spam the user
-            prefs.Edit()
-                 .PutInt("LAST_REQUEST_COUNT", currentRequestsCount)
-                 .PutInt("LAST_FRIEND_COUNT", currentFriendsCount)
-                 .Apply();
+                int currentRequestsCount = Helper.GetPendingRequests(context, myId).Count;
+                int currentFriendsCount = Helper.GetMyFriends(context, myId).Count;
+
+                int lastRequestsCount = prefs.GetInt("LAST_REQUEST_COUNT", currentRequestsCount);
+                int lastFriendsCount = prefs.GetInt("LAST_FRIEND_COUNT", currentFriendsCount);
+
+                if (currentRequestsCount > lastRequestsCount)
+                {
+                    ShowNotification(context, "New Friend Request!", $"You have {currentRequestsCount} pending requests waiting.", 1001);
+                }
+
+                if (currentFriendsCount > lastFriendsCount)
+                {
+                    ShowNotification(context, "Friend Request Accepted!", "You have a new friend in your list.", 1002);
+                }
+
+                prefs.Edit()
+                     .PutInt("LAST_REQUEST_COUNT", currentRequestsCount)
+                     .PutInt("LAST_FRIEND_COUNT", currentFriendsCount)
+                     .Apply();
+            });
         }
 
         private void ShowNotification(Context context, string title, string message, int notificationId)
@@ -3150,14 +3217,12 @@ namespace FinalProject331406710
             string channelId = "poker_friends_channel";
             NotificationManager manager = (NotificationManager)context.GetSystemService(Context.NotificationService);
 
-            // Modern Android requires a Notification Channel
             if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
             {
                 NotificationChannel channel = new NotificationChannel(channelId, "Friend Updates", NotificationImportance.Default);
                 manager.CreateNotificationChannel(channel);
             }
 
-            // Clicking the notification opens the app to the Friends page
             Intent clickIntent = new Intent(context, typeof(FriendsActivity));
             PendingIntent pendingIntent = PendingIntent.GetActivity(context, 0, clickIntent, PendingIntentFlags.Immutable);
 
@@ -3167,7 +3232,7 @@ namespace FinalProject331406710
                 .SetContentText(message)
                 .SetPriority(NotificationCompat.PriorityDefault)
                 .SetContentIntent(pendingIntent)
-                .SetAutoCancel(true); // Removes notification when clicked
+                .SetAutoCancel(true);
 
             manager.Notify(notificationId, builder.Build());
         }
@@ -3176,6 +3241,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\FriendsActivity.cs =====
+
 
 using Android.App; // Tool for creating the screen
 using Android.Content; // Tool for passing data between screens
@@ -3361,6 +3427,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\FriendsAdapter.cs =====
 
+
 using Android.App; // Tool for creating the screen
 using Android.Views; // Tool for handling views
 using Android.Widget; // Tool for UI elements
@@ -3504,6 +3571,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Friendship.cs =====
 
+
 using SQLite;
 using System;
 
@@ -3539,6 +3607,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Helper.cs =====
 
+
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -3557,6 +3626,8 @@ namespace FinalProject331406710
     internal class Helper
     {
         public static string dbname = "Users";
+
+        // --- FIX: The static variable holds the connection forever ---
         static SQLiteConnection dbCommand;
 
         public Helper() { }
@@ -3569,10 +3640,14 @@ namespace FinalProject331406710
             );
         }
 
+        // --- FIX: Only create a new connection if one doesn't exist yet! ---
         public static SQLiteConnection Getdbcommand(Context context)
         {
-            string path = Path(context);
-            dbCommand = new SQLiteConnection(path);
+            if (dbCommand == null)
+            {
+                string path = Path(context);
+                dbCommand = new SQLiteConnection(path);
+            }
             return dbCommand;
         }
 
@@ -3583,7 +3658,7 @@ namespace FinalProject331406710
                 var dbCommand = Getdbcommand(context);
                 dbCommand.CreateTable<Users>();
                 dbCommand.CreateTable<Friendship>();
-                dbCommand.CreateTable<UserHandStats>(); // <-- NEW TABLE
+                dbCommand.CreateTable<UserHandStats>();
             }
             catch (Exception ex)
             {
@@ -3592,7 +3667,6 @@ namespace FinalProject331406710
         }
 
         // --- AUTHENTICATION METHODS ---
-
         public static Users ValidateUser(Context context, string id, string password)
         {
             try
@@ -3678,7 +3752,6 @@ namespace FinalProject331406710
         }
 
         // --- STATS LOGIC ---
-
         public static void RecordHandWin(Context context, string userId, string handType, int moneyWon)
         {
             try
@@ -3718,7 +3791,6 @@ namespace FinalProject331406710
         }
 
         // --- UI HELPER METHODS ---
-
         public static void SetupPasswordVisibilityToggle(EditText editText)
         {
             editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, Resource.Drawable.ic_eye_hidden, 0);
@@ -3757,7 +3829,6 @@ namespace FinalProject331406710
 
 
         // --- FRIENDS LOGIC ---
-
         public static bool SendFriendRequest(Context context, string senderId, string receiverId)
         {
             var db = Getdbcommand(context);
@@ -3849,13 +3920,15 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\HomePage.cs =====
 
-using Android; // Required for Manifest.Permission
+
+using Android;
 using Android.App;
 using Android.Content;
-using Android.Content.PM; // Required for Permission checking
+using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using Android.Net; // NEW: Required for Network Checking
 using FinalProject331406710.Engine;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -3865,7 +3938,8 @@ namespace FinalProject331406710
     public class HomePage : Base
     {
         TextView _balanceText;
-        Button _btnPlay;
+        Button _btnOffline;
+        Button _btnOnline;
         Button _btnTutorial;
         Button _btnTrivia;
         Button _btnStats;
@@ -3891,17 +3965,20 @@ namespace FinalProject331406710
             SetSupportActionBar(toolbar);
 
             _balanceText = FindViewById<TextView>(Resource.Id.homeBalanceText);
-            _btnPlay = FindViewById<Button>(Resource.Id.btnPlayPoker);
+            _btnOffline = FindViewById<Button>(Resource.Id.btnOfflinePoker);
+            _btnOnline = FindViewById<Button>(Resource.Id.btnOnlinePoker);
             _btnTutorial = FindViewById<Button>(Resource.Id.btnTutorial);
             _btnTrivia = FindViewById<Button>(Resource.Id.btnTrivia);
             _btnStats = FindViewById<Button>(Resource.Id.btnStats);
 
-            _btnPlay.Click += (s, e) => ShowBuyInDialog();
+            // Wire the buttons
+            _btnOffline.Click += (s, e) => ShowBuyInDialog(false);
+            _btnOnline.Click += (s, e) => ShowBuyInDialog(true);
+
             _btnTutorial.Click += (s, e) => StartActivity(typeof(TutorialActivity));
             _btnTrivia.Click += (s, e) => StartActivity(typeof(TriviaActivity));
             _btnStats.Click += (s, e) => StartActivity(typeof(StatisticsActivity));
 
-            // --- NEW: Request Notification Permissions for Android 13+ ---
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Tiramisu)
             {
                 if (CheckSelfPermission(Manifest.Permission.PostNotifications) != Permission.Granted)
@@ -3910,7 +3987,6 @@ namespace FinalProject331406710
                 }
             }
 
-            // --- NEW: Start the Background Alarm ---
             StartBackgroundAlarm();
         }
 
@@ -3918,26 +3994,56 @@ namespace FinalProject331406710
         {
             base.OnResume();
             _balanceText.Text = UserWallet.Balance.ToString("N0");
+
+            // --- NEW: Perform the Network Check every time the page loads ---
+            if (IsNetworkAvailable())
+            {
+                _btnOnline.Enabled = true;
+                _btnOnline.Text = "Play Online";
+                _btnOnline.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.ParseColor("#0000b3")); // Blue
+            }
+            else
+            {
+                _btnOnline.Enabled = false;
+                _btnOnline.Text = "Play Online (No Internet)";
+                _btnOnline.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.ParseColor("#555555")); // Grey
+            }
+        }
+
+        // --- NEW: Hardware Network Check Logic ---
+        private bool IsNetworkAvailable()
+        {
+            ConnectivityManager cm = (ConnectivityManager)GetSystemService(Context.ConnectivityService);
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                Network activeNetwork = cm.ActiveNetwork;
+                if (activeNetwork == null) return false;
+                NetworkCapabilities capabilities = cm.GetNetworkCapabilities(activeNetwork);
+                return capabilities != null &&
+                       (capabilities.HasTransport(Android.Net.TransportType.Wifi) ||
+                        capabilities.HasTransport(Android.Net.TransportType.Cellular));
+            }
+            else
+            {
+#pragma warning disable CS0618
+                NetworkInfo networkInfo = cm.ActiveNetworkInfo;
+                return networkInfo != null && networkInfo.IsConnected;
+#pragma warning restore CS0618
+            }
         }
 
         private void StartBackgroundAlarm()
         {
             Intent alarmIntent = new Intent(this, typeof(FriendNotificationReceiver));
-
-            // Flags.Immutable is required for modern Android security
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, alarmIntent, PendingIntentFlags.Immutable);
-
             AlarmManager alarmManager = (AlarmManager)GetSystemService(Context.AlarmService);
 
-            // Sets the alarm to wake up every 60 seconds (60,000 milliseconds)
             long interval = 60 * 1000;
             long triggerAt = SystemClock.ElapsedRealtime() + interval;
-
-            // InexactRepeating is battery friendly, perfect for background checks
             alarmManager.SetInexactRepeating(AlarmType.ElapsedRealtimeWakeup, triggerAt, interval, pendingIntent);
         }
 
-        private void ShowBuyInDialog()
+        private void ShowBuyInDialog(bool isOnline)
         {
             View dialogView = this.LayoutInflater.Inflate(Resource.Layout.buyin_dialog, null);
 
@@ -3945,6 +4051,9 @@ namespace FinalProject331406710
             var input = dialogView.FindViewById<EditText>(Resource.Id.buyInAmountInput);
             var btnJoin = dialogView.FindViewById<Button>(Resource.Id.btnJoinTable);
             var walletText = dialogView.FindViewById<TextView>(Resource.Id.walletBalanceText);
+
+            // Change button color to match the mode
+            if (isOnline) btnJoin.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.ParseColor("#0000b3"));
 
             walletText.Text = $"Wallet: {UserWallet.Balance:N0}";
 
@@ -3984,7 +4093,13 @@ namespace FinalProject331406710
 
                     UserWallet.Balance -= amount;
 
-                    Intent intent = new Intent(this, typeof(PokerGameActivity));
+                    // Route to the correct activity based on mode!
+                    Intent intent;
+                    if (isOnline)
+                        intent = new Intent(this, typeof(OnlinePokerGameActivity));
+                    else
+                        intent = new Intent(this, typeof(PokerGameActivity));
+
                     intent.PutExtra("GAME_STACK", amount);
                     StartActivity(intent);
 
@@ -3999,6 +4114,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\MainActivity.cs =====
+
 
 using Android.App;
 using Android.Content;
@@ -4049,7 +4165,72 @@ namespace FinalProject331406710
 }
 
 
+// ===== C:\הנדסת תוכנה\FinalProject331406710v1\OnlinePokerGameActivity.cs =====
+
+
+using Android.App;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
+using AndroidX.AppCompat.App;
+using FinalProject331406710.Engine;
+using Android.Content;
+
+namespace FinalProject331406710
+{
+    // The Online Shell! 
+    [Activity(Label = "Online Poker", Theme = "@style/AppTheme")]
+    public class OnlinePokerGameActivity : AppCompatActivity
+    {
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // We reuse the exact same layout file to save space and keep it unified!
+            SetContentView(Resource.Layout.PokerGameLayout);
+
+            var toolbar = FindViewById<AndroidX.AppCompat.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+            SupportActionBar.Title = "Live Multiplayer (Coming Soon)";
+
+            // Show a toast that this is under construction
+            Toast.MakeText(this, "Searching for live server...", ToastLength.Long).Show();
+
+            // TODO: In the future, write logic here to connect to the SQL Database,
+            // pull real users into the table instead of bots, and sync the GameManager over the cloud!
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.game_menu, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.action_leave_table)
+            {
+                int startingStack = Intent.GetIntExtra("GAME_STACK", 1000);
+                UserWallet.Balance += startingStack; // Refund them since they couldn't play
+                Finish();
+                return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+
+        [System.Obsolete]
+        public override void OnBackPressed()
+        {
+            int startingStack = Intent.GetIntExtra("GAME_STACK", 1000);
+            UserWallet.Balance += startingStack; // Refund them since they couldn't play
+            Finish();
+        }
+    }
+}
+
+
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\PokerGameActivity.cs =====
+
 
 using Android.App;
 using Android.OS;
@@ -4089,7 +4270,6 @@ namespace FinalProject331406710
         private string _myId;
         private bool _statsRecordedThisHand = false;
 
-        // --- NEW: Bot Timing Controls ---
         private bool _isWaitingForBot = false;
         private bool _skipBotDelay = false;
 
@@ -4174,14 +4354,19 @@ namespace FinalProject331406710
             ConfirmCashOut();
         }
 
-        // --- UPDATED CLICK HANDLERS (With Skip Logic) ---
         private void OnFoldClicked(object sender, System.EventArgs e)
         {
-            // If it's the bot's turn, clicking this just skips the timer!
             if (_isWaitingForBot) { _skipBotDelay = true; return; }
 
             if (_gameManager.CurrentStage == GameStage.Showdown)
             {
+                if (_gameManager.Players[0].Stack <= 0)
+                {
+                    Toast.MakeText(this, "Game Over! You ran out of chips.", ToastLength.Long).Show();
+                    Finish();
+                    return;
+                }
+
                 _gameManager.AwardPotAndStartNewHand();
                 _statsRecordedThisHand = false;
                 UpdateAllUI();
@@ -4197,6 +4382,13 @@ namespace FinalProject331406710
 
             if (_gameManager.CurrentStage == GameStage.Showdown)
             {
+                if (_gameManager.Players[0].Stack <= 0)
+                {
+                    Toast.MakeText(this, "Game Over! You ran out of chips.", ToastLength.Long).Show();
+                    Finish();
+                    return;
+                }
+
                 _gameManager.AwardPotAndStartNewHand();
                 _statsRecordedThisHand = false;
                 UpdateAllUI();
@@ -4220,6 +4412,13 @@ namespace FinalProject331406710
 
             if (_gameManager.CurrentStage == GameStage.Showdown)
             {
+                if (_gameManager.Players[0].Stack <= 0)
+                {
+                    Toast.MakeText(this, "Game Over! You ran out of chips.", ToastLength.Long).Show();
+                    Finish();
+                    return;
+                }
+
                 _gameManager.AwardPotAndStartNewHand();
                 _statsRecordedThisHand = false;
                 UpdateAllUI();
@@ -4367,13 +4566,11 @@ namespace FinalProject331406710
                 _resultsText.Text = _gameManager.LastAction;
             }
 
-            // --- BUTTON LOGIC FIX ---
             Player currentPlayer = _gameManager.CurrentPlayer;
             int amountToCall = _gameManager.CurrentBetToCall - currentPlayer.CurrentBetInRound;
 
             if (_gameManager.CurrentStage == GameStage.Showdown)
             {
-                // FIX: If hand is over, unlock everything so the user can start a new hand!
                 _foldButtonText.Text = "Next";
                 _checkCallButtonText.Text = "Next";
                 _raiseButtonText.Text = "Next";
@@ -4403,7 +4600,6 @@ namespace FinalProject331406710
                 }
                 else
                 {
-                    // It is the bot's turn. Buttons become "Skip" buttons.
                     _foldButtonText.Text = "Skip >>";
                     _checkCallButtonText.Text = "Skip >>";
                     _raiseButtonText.Text = "Skip >>";
@@ -4412,7 +4608,6 @@ namespace FinalProject331406710
                     _checkCallButton.Enabled = true;
                     _raiseButton.Enabled = true;
 
-                    // Trigger the Bot AI if it's not already running
                     if (!_isWaitingForBot)
                     {
                         ExecuteBotTurnAsync();
@@ -4426,39 +4621,44 @@ namespace FinalProject331406710
             _isWaitingForBot = true;
             _skipBotDelay = false;
 
-            // Wait up to 20 seconds (200 checks * 100ms = 20,000ms)
-            // If the human clicks a button, _skipBotDelay becomes true and it instantly breaks the loop!
+            // Wait up to 20 seconds
             for (int i = 0; i < 200; i++)
             {
                 if (_skipBotDelay) break;
                 await Task.Delay(100);
             }
 
-            _isWaitingForBot = false;
-
-            // Double check it's still the bot's turn after waiting
-            if (_gameManager.CurrentStage == GameStage.Showdown || _gameManager.CurrentPlayer.Name == "Player")
-                return;
-
-            Player bot = _gameManager.CurrentPlayer;
-            int amountToCall = _gameManager.CurrentBetToCall - bot.CurrentBetInRound;
-
-            if (amountToCall == 0)
+            // --- FIX: Safely route back to the Main UI Thread! ---
+            RunOnUiThread(() =>
             {
-                if (new System.Random().Next(100) < 15 && bot.Stack >= 50)
-                    _gameManager.ProcessPlayerAction(PlayerAction.Raise, bot.CurrentBetInRound + 50);
-                else
-                    _gameManager.ProcessPlayerAction(PlayerAction.Check);
-            }
-            else
-            {
-                if (amountToCall > bot.Stack / 3)
-                    _gameManager.ProcessPlayerAction(PlayerAction.Fold);
-                else
-                    _gameManager.ProcessPlayerAction(PlayerAction.Call);
-            }
+                // Safety check: Don't crash if the user left the table while the bot was thinking
+                if (IsFinishing || IsDestroyed) return;
 
-            UpdateAllUI();
+                _isWaitingForBot = false;
+
+                if (_gameManager.CurrentStage == GameStage.Showdown || _gameManager.CurrentPlayer.Name == "Player")
+                    return;
+
+                Player bot = _gameManager.CurrentPlayer;
+                int amountToCall = _gameManager.CurrentBetToCall - bot.CurrentBetInRound;
+
+                if (amountToCall == 0)
+                {
+                    if (new System.Random().Next(100) < 15 && bot.Stack >= 50)
+                        _gameManager.ProcessPlayerAction(PlayerAction.Raise, bot.CurrentBetInRound + 50);
+                    else
+                        _gameManager.ProcessPlayerAction(PlayerAction.Check);
+                }
+                else
+                {
+                    if (amountToCall > bot.Stack / 3)
+                        _gameManager.ProcessPlayerAction(PlayerAction.Fold);
+                    else
+                        _gameManager.ProcessPlayerAction(PlayerAction.Call);
+                }
+
+                UpdateAllUI();
+            });
         }
 
         private string RunShowdown()
@@ -4608,6 +4808,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\ProfileActivity.cs =====
+
 
 using Android.App;
 using Android.Content;
@@ -5153,6 +5354,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\SignIn.cs =====
 
+
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -5282,6 +5484,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\SignUp.cs =====
+
 
 using Android.App;
 using Android.Content;
@@ -5468,6 +5671,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\StatisticsActivity.cs =====
 
+
 using Android.App;
 using Android.Graphics;
 using Android.OS;
@@ -5592,6 +5796,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\TriviaActivity.cs =====
+
 
 using Android.App;
 using Android.OS;
@@ -5784,6 +5989,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\TutorialActivity.cs =====
+
 
 using Android.App;
 using Android.Graphics;
@@ -6129,6 +6335,7 @@ namespace FinalProject331406710
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\UserHandStats.cs =====
 
+
 using SQLite;
 
 namespace FinalProject331406710
@@ -6157,6 +6364,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\UserListAdapter.cs =====
+
 
 using Android.App;
 using Android.Views;
@@ -6197,6 +6405,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\Users.cs =====
+
 
 using SQLite;
 
@@ -6254,6 +6463,7 @@ namespace FinalProject331406710
 
 
 // ===== C:\הנדסת תוכנה\FinalProject331406710v1\UserSearchActivity.cs =====
+
 
 using Android.App;
 using Android.Content;
