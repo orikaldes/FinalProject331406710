@@ -48,6 +48,15 @@ namespace FinalProject331406710
             var btnNegative = view.FindViewById<ImageButton>(Resource.Id.btnActionNegative);
 
             textName.Text = user.FullName;
+            if (!string.IsNullOrEmpty(user.ProfileImagePath))
+            {
+                var bitmap = Android.Graphics.BitmapFactory.DecodeFile(user.ProfileImagePath);
+                imgProfile.SetImageBitmap(bitmap);
+            }
+            else
+            {
+                imgProfile.SetImageResource(Resource.Drawable.ic_default_avatar);
+            }
 
             // 1. Check Status to determine Buttons
             // Returns: -1 (Strangers), 0 (Pending), 1 (Friends)

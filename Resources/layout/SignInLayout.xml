@@ -3,14 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#336933">
 
 	<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/BlackTextStyle" />
+        android:background="#225522"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 	<LinearLayout
         android:orientation="vertical"
@@ -22,7 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In"
-            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="28sp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"/>
 
@@ -31,6 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#BBBBBB"
+            android:backgroundTint="#FFFFFF"
             android:inputType="number"
             android:maxLength="9" />
 
@@ -39,12 +45,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#BBBBBB"
+            android:backgroundTint="#FFFFFF"
             android:inputType="textPassword" />
 
 		<CheckBox
             android:id="@+id/checkBoxRememberMe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:buttonTint="#FFFF00"
             android:text="Remember Me" />
 
 		<TextView
@@ -55,17 +66,19 @@
             android:gravity="end"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorAccent"
+            android:textColor="#FFFF00"
             android:layout_marginTop="10dp"
             android:clickable="true"
             android:focusable="true" />
+
 		<Button
             android:id="@+id/buttonSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#b30000"
+            android:textColor="#FFFFFF"
             android:text="Sign In"
             android:layout_marginTop="20dp" />
 
 	</LinearLayout>
-
 </LinearLayout>

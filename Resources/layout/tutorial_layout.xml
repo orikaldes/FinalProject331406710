@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#336933">
+
+	<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#225522"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+	<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+		<LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+			<TextView
+                android:id="@+id/tutorialTitle"
+                android:text="Step 1: The Rules"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#FFFF00"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+			<Button
+                android:id="@+id/btnSpeak"
+                android:text="🔊 Read Aloud"
+                android:backgroundTint="#225522"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+			<TextView
+                android:id="@+id/tutorialText"
+                android:text="Description goes here..."
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+			<LinearLayout
+                android:id="@+id/exampleContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+
+	<LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#225522">
+
+		<Button
+            android:id="@+id/btnPrev"
+            android:text="Back"
+            android:enabled="false"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+		<TextView
+            android:id="@+id/pageIndicator"
+            android:text="1 / 4"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+		<Button
+            android:id="@+id/btnNext"
+            android:text="Next"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+	</LinearLayout>
+</LinearLayout>

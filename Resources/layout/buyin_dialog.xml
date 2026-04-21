@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+	<TextView
+        android:text="Buy In Amount"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+	<TextView
+        android:id="@+id/walletBalanceText"
+        android:text="Wallet: 50000"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+	<EditText
+        android:id="@+id/buyInAmountInput"
+        android:inputType="number"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="1000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+	<SeekBar
+        android:id="@+id/buyInSlider"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+	<Button
+        android:id="@+id/btnJoinTable"
+        android:text="Join Table"
+        android:backgroundTint="#336933"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

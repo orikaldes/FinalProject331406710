@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#336933">
 
 	<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/BlackTextStyle"
+        android:background="#225522"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ForceBlackTextMenu" />
 
 	<ScrollView
@@ -24,34 +26,40 @@
             android:gravity="center_horizontal"
             android:padding="20dp">
 
-			<FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-				<ImageView
-                    android:id="@+id/imgProfile"
-                    android:src="@android:drawable/ic_menu_camera"
-                    android:background="#DDDDDD"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:padding="2dp" />
-				<TextView
-                    android:text="Edit"
-                    android:background="#AA000000"
-                    android:textColor="#FFFFFF"
-                    android:textSize="10sp"
-                    android:padding="4dp"
-                    android:layout_gravity="bottom|center_horizontal"
+			<androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="60dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#225522">
+				<FrameLayout
                     android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:layout_height="wrap_content" />
-			</FrameLayout>
+                    android:layout_height="match_parent">
+					<ImageView
+                        android:id="@+id/imgProfile"
+                        android:src="@drawable/ic_default_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+					<TextView
+                        android:text="Edit"
+                        android:background="#AA000000"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:padding="4dp"
+                        android:layout_gravity="bottom"
+                        android:layout_width="match_parent"
+                        android:gravity="center"
+                        android:layout_height="wrap_content" />
+				</FrameLayout>
+			</androidx.cardview.widget.CardView>
 
 			<TextView
                 android:id="@+id/textProfileNameHeader"
                 android:text="User Name"
-                android:textSize="24sp"
+                android:textColor="#FFFF00"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
@@ -59,13 +67,16 @@
 
 			<Button
                 android:id="@+id/btnFriends"
-                android:text="Friends"
+                android:text="Friends List"
+                android:backgroundTint="#222222"
+                android:textColor="#FFFFFF"
                 android:layout_marginBottom="20dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content" />
 
 			<TextView
                 android:text="My World"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="start"
@@ -78,6 +89,7 @@
                 android:layout_height="200dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp"
+                app:cardBackgroundColor="#225522"
                 android:layout_marginBottom="10dp">
 
 				<fragment
@@ -98,6 +110,7 @@
 
 				<TextView
                     android:text="Current Location: "
+                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -106,7 +119,7 @@
                     android:id="@+id/textCity"
                     android:text="Unknown"
                     android:textSize="16sp"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="#FFFF00"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content" />
@@ -115,6 +128,7 @@
                     android:id="@+id/btnEditCity"
                     android:src="@android:drawable/ic_menu_edit"
                     android:background="?android:attr/selectableItemBackground"
+                    android:tint="#FFFF00"
                     android:layout_width="40dp"
                     android:layout_height="40dp" />
 			</LinearLayout>
@@ -124,12 +138,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-				<TextView android:text="Full Name:" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+				<TextView android:text="Full Name:" android:textColor="#CCCCCC" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 				<LinearLayout android:orientation="horizontal" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="15dp">
 					<TextView
                         android:id="@+id/textFullName"
                         android:text="Loading..."
-                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
@@ -137,16 +152,18 @@
                         android:id="@+id/btnEditName"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?android:attr/selectableItemBackground"
+                        android:tint="#FFFF00"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
 				</LinearLayout>
 
-				<TextView android:text="Email:" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+				<TextView android:text="Email:" android:textColor="#CCCCCC" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 				<LinearLayout android:orientation="horizontal" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="15dp">
 					<TextView
                         android:id="@+id/textEmail"
                         android:text="Loading..."
-                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
@@ -154,16 +171,18 @@
                         android:id="@+id/btnEditEmail"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?android:attr/selectableItemBackground"
+                        android:tint="#FFFF00"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
 				</LinearLayout>
 
-				<TextView android:text="Age:" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+				<TextView android:text="Age:" android:textColor="#CCCCCC" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
 				<LinearLayout android:orientation="horizontal" android:gravity="center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="15dp">
 					<TextView
                         android:id="@+id/textAge"
                         android:text="Loading..."
-                        android:textSize="16sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content" />
@@ -171,6 +190,7 @@
                         android:id="@+id/btnEditAge"
                         android:src="@android:drawable/ic_menu_edit"
                         android:background="?android:attr/selectableItemBackground"
+                        android:tint="#FFFF00"
                         android:layout_width="40dp"
                         android:layout_height="40dp" />
 				</LinearLayout>
@@ -178,7 +198,7 @@
 				<Button
                     android:id="@+id/btnChangePassword"
                     android:text="Change Password"
-                    android:backgroundTint="#AA0000"
+                    android:backgroundTint="#b30000"
                     android:textColor="#FFFFFF"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
@@ -186,7 +206,6 @@
                     android:layout_height="wrap_content" />
 
 			</LinearLayout>
-
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>

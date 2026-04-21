@@ -18,7 +18,9 @@ using Android.Gms.Maps.Model;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http; // Required for City Search
+using System.Net.Http;
+using AndroidX.Activity.Result;
+using AndroidX.Activity.Result.Contract;
 
 namespace FinalProject331406710
 {
@@ -36,15 +38,25 @@ namespace FinalProject331406710
         Users currentUser;
         string _currentId;
 
-        // Camera/Gallery Variables
+        // --- NEW FORMAT: Activity Result Launchers ---
+        private ActivityResultLauncher _cameraLauncher;
+        private ActivityResultLauncher _galleryLauncher;
         private File _photoFile;
         private Android.Net.Uri _photoUri;
-        const int CAMERA_REQUEST_CODE = 101;
-        const int GALLERY_REQUEST_CODE = 102;
         const int PERMISSION_REQUEST_CAMERA = 200;
 
-        // Web Client for City Search (with 5 second timeout)
+        // Web Client for City Search
         private static readonly HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(5) };
+
+        // Helper Class required for C# Implementation of the New ActivityResult callback
+        private class ActivityResultCallback : Java.Lang.Object, IActivityResultCallback
+        {
+            public Action<Java.Lang.Object> OnResultAction { get; set; }
+            public void OnActivityResult(Java.Lang.Object result)
+            {
+                OnResultAction?.Invoke(result);
+            }
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -77,30 +89,74 @@ namespace FinalProject331406710
             _currentId = prefs.GetString("CURRENTLY_LOGGED_IN_ID", "");
             Helper.Initialize(this);
 
-            // 3. Load User Data (Async - won't freeze UI)
+            // --- 3. REGISTER THE NEW ACTIVITY RESULT LAUNCHERS (BAGRUT REQUIREMENT) ---
+
+            // A. Camera Launcher
+            _cameraLauncher = RegisterForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback
+                {
+                    OnResultAction = resultObj =>
+                    {
+                        var result = resultObj as ActivityResult;
+                        if (result.ResultCode == (int)Result.Ok)
+                        {
+                            string finalPath = _photoFile.AbsolutePath;
+                            if (!string.IsNullOrEmpty(finalPath))
+                            {
+                                currentUser.ProfileImagePath = finalPath;
+                                Helper.Getdbcommand(this).Update(currentUser);
+                                LoadUserDataAsync();
+                            }
+                        }
+                    }
+                }
+            );
+
+            // B. Gallery Launcher
+            _galleryLauncher = RegisterForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback
+                {
+                    OnResultAction = resultObj =>
+                    {
+                        var result = resultObj as ActivityResult;
+                        if (result.ResultCode == (int)Result.Ok && result.Data != null)
+                        {
+                            string finalPath = CopyGalleryImageToApp(result.Data.Data);
+                            if (!string.IsNullOrEmpty(finalPath))
+                            {
+                                currentUser.ProfileImagePath = finalPath;
+                                Helper.Getdbcommand(this).Update(currentUser);
+                                LoadUserDataAsync();
+                            }
+                        }
+                    }
+                }
+            );
+            // --------------------------------------------------------------------------
+
+            // 4. Load User Data
             LoadUserDataAsync();
 
-            // 4. Load Map (Delayed - prevents entry lag)
+            // 5. Load Map
             var mapFragment = (SupportMapFragment)SupportFragmentManager.FindFragmentById(Resource.Id.mapFragmentProfile);
-
-            // Wait 500ms for the page to settle, then load the map
-            Task.Delay(500).ContinueWith(t =>
+            Task.Delay(800).ContinueWith(t =>
             {
-                RunOnUiThread(() => mapFragment.GetMapAsync(this));
+                RunOnUiThread(() => mapFragment?.GetMapAsync(this));
             });
 
-            // 5. Setup Listeners
+            // 6. Setup Listeners
             imgProfile.Click += OnProfilePictureClick;
             btnEditName.Click += (s, e) => ShowEditDialog("Full Name", textFullName.Text, "fullName");
             btnEditEmail.Click += (s, e) => ShowEditDialog("Email", textEmail.Text, "eMail");
-            btnEditCity.Click += OnEditCityClick; // New City Editor
+            btnEditCity.Click += OnEditCityClick;
 
             btnFriends.Click += (s, e) => StartActivity(typeof(FriendsActivity));
             btnChangePassword.Click += OnChangePasswordClick;
 
             btnEditAge.Click += (s, e) => ShowAgePicker();
 
-            // Setup Header for OpenStreetMap
             if (client.DefaultRequestHeaders.UserAgent.Count == 0)
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "MyPokerApp/1.0");
@@ -111,8 +167,8 @@ namespace FinalProject331406710
         public void OnMapReady(GoogleMap googleMap)
         {
             _googleMap = googleMap;
+            if (_googleMap == null) return;
 
-            // Lock the map interactions (Lite Mode behavior)
             _googleMap.UiSettings.ScrollGesturesEnabled = false;
             _googleMap.UiSettings.ZoomGesturesEnabled = false;
             _googleMap.UiSettings.TiltGesturesEnabled = false;
@@ -125,56 +181,65 @@ namespace FinalProject331406710
 
         private async void LoadMapDataAsync()
         {
+            if (_googleMap == null) return;
+
             try
             {
-                // Background: Fetch Friends
                 var data = await Task.Run(() => Helper.GetMyFriends(this, _currentId));
 
-                if (_googleMap != null)
-                {
-                    _googleMap.Clear();
-                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                    bool hasPoints = false;
+                if (_googleMap == null) return;
 
-                    // Add Me (Blue)
-                    if (currentUser != null && currentUser.Latitude != 0)
+                _googleMap.Clear();
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                bool hasPoints = false;
+                int friendCount = 0;
+                bool hasUserLocation = currentUser != null && currentUser.Latitude != 0;
+
+                // 1. Add Me (Blue)
+                if (hasUserLocation)
+                {
+                    var pos = new LatLng(currentUser.Latitude, currentUser.Longitude);
+                    _googleMap.AddMarker(new MarkerOptions().SetPosition(pos).SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure)));
+                    builder.Include(pos);
+                    hasPoints = true;
+                }
+
+                // 2. Add Friends (Red)
+                foreach (var friend in data)
+                {
+                    if (friend.Latitude != 0)
                     {
-                        var pos = new LatLng(currentUser.Latitude, currentUser.Longitude);
-                        _googleMap.AddMarker(new MarkerOptions().SetPosition(pos).SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueAzure)));
+                        var pos = new LatLng(friend.Latitude, friend.Longitude);
+                        _googleMap.AddMarker(new MarkerOptions().SetPosition(pos));
                         builder.Include(pos);
                         hasPoints = true;
+                        friendCount++;
                     }
+                }
 
-                    // Add Friends (Red)
-                    foreach (var friend in data)
+                // 3. Smart Camera Logic
+                if (hasPoints)
+                {
+                    if (friendCount == 0 && hasUserLocation)
                     {
-                        if (friend.Latitude != 0)
-                        {
-                            var pos = new LatLng(friend.Latitude, friend.Longitude);
-                            _googleMap.AddMarker(new MarkerOptions().SetPosition(pos));
-                            builder.Include(pos);
-                            hasPoints = true;
-                        }
+                        _googleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(new LatLng(currentUser.Latitude, currentUser.Longitude), 7.5f));
                     }
-
-                    // Smart Zoom
-                    if (hasPoints)
+                    else
                     {
                         try
                         {
                             LatLngBounds bounds = builder.Build();
-                            // 50px padding is enough for a small card
                             _googleMap.MoveCamera(CameraUpdateFactory.NewLatLngBounds(bounds, 50));
                         }
                         catch
                         {
-                            // Fallback if points are too close
-                            if (currentUser != null && currentUser.Latitude != 0)
-                            {
-                                _googleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(new LatLng(currentUser.Latitude, currentUser.Longitude), 10));
-                            }
+                            _googleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(new LatLng(currentUser.Latitude, currentUser.Longitude), 7.5f));
                         }
                     }
+                }
+                else
+                {
+                    _googleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(new LatLng(31.0461, 34.8516), 7.5f));
                 }
             }
             catch (Exception ex)
@@ -188,7 +253,6 @@ namespace FinalProject331406710
         {
             try
             {
-                // Background: DB Read & Image Decode
                 var result = await Task.Run(() =>
                 {
                     var db = Helper.Getdbcommand(this);
@@ -207,7 +271,6 @@ namespace FinalProject331406710
                     return new { User = user, Img = profileBitmap };
                 });
 
-                // Foreground: Update UI
                 currentUser = result.User;
                 if (currentUser != null)
                 {
@@ -216,7 +279,6 @@ namespace FinalProject331406710
                     textEmail.Text = currentUser.Email;
                     textAge.Text = currentUser.Age.ToString();
                     textCity.Text = string.IsNullOrEmpty(currentUser.City) ? "Not Set" : currentUser.City;
-
                     if (result.Img != null)
                     {
                         imgProfile.SetImageBitmap(result.Img);
@@ -240,9 +302,8 @@ namespace FinalProject331406710
             input.Text = currentUser.City;
             builder.SetView(input);
 
-            builder.SetPositiveButton("Update", (s, args) => { }); // Overridden below
+            builder.SetPositiveButton("Update", (s, args) => { });
             builder.SetNegativeButton("Cancel", (s, args) => { });
-
             var dialog = builder.Create();
             dialog.Show();
 
@@ -253,19 +314,15 @@ namespace FinalProject331406710
 
                 Toast.MakeText(this, "Searching...", ToastLength.Short).Show();
 
-                // 1. Search Async
                 var coords = await GetCoordinatesFromCity(newCity);
-
                 if (coords != null)
                 {
-                    // 2. Update Data
                     currentUser.City = newCity;
                     currentUser.Latitude = coords.Item1;
                     currentUser.Longitude = coords.Item2;
 
                     Helper.Getdbcommand(this).Update(currentUser);
 
-                    // 3. Refresh UI
                     LoadUserDataAsync();
                     LoadMapDataAsync();
 
@@ -285,7 +342,7 @@ namespace FinalProject331406710
             {
                 try
                 {
-                    string url = $"https://nominatim.openstreetmap.org/search?q={cityName}&format=json&limit=1";
+                    string url = $"https://nominatim.openstreetmap.org/search?q={Uri.EscapeDataString(cityName)}&format=json&limit=1";
                     string jsonResponse = await client.GetStringAsync(url);
 
                     if (string.IsNullOrEmpty(jsonResponse) || jsonResponse == "[]") return null;
@@ -338,6 +395,7 @@ namespace FinalProject331406710
             EditText input = new EditText(this);
             input.Text = currentValue;
             builder.SetView(input);
+
             builder.SetPositiveButton("Save", (s, args) =>
             {
                 string newValue = input.Text.Trim();
@@ -423,7 +481,9 @@ namespace FinalProject331406710
                 _photoFile = new File(GetExternalFilesDir(Android.OS.Environment.DirectoryPictures), $"profile_{currentUser.Id}.jpg");
                 _photoUri = FileProvider.GetUriForFile(this, "com.companyname.finalproject331406710.fileprovider", _photoFile);
                 intent.PutExtra(MediaStore.ExtraOutput, _photoUri);
-                StartActivityForResult(intent, CAMERA_REQUEST_CODE);
+
+                // Launch using the NEW Format
+                _cameraLauncher.Launch(intent);
             }
             catch (Exception ex) { Toast.MakeText(this, "Camera Error: " + ex.Message, ToastLength.Long).Show(); }
         }
@@ -433,25 +493,9 @@ namespace FinalProject331406710
             Intent intent = new Intent();
             intent.SetType("image/*");
             intent.SetAction(Intent.ActionGetContent);
-            StartActivityForResult(Intent.CreateChooser(intent, "Select Picture"), GALLERY_REQUEST_CODE);
-        }
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
-        {
-            base.OnActivityResult(requestCode, resultCode, data);
-            if (resultCode == Result.Ok)
-            {
-                string finalPath = "";
-                if (requestCode == CAMERA_REQUEST_CODE) finalPath = _photoFile.AbsolutePath;
-                else if (requestCode == GALLERY_REQUEST_CODE) finalPath = CopyGalleryImageToApp(data.Data);
-
-                if (!string.IsNullOrEmpty(finalPath))
-                {
-                    currentUser.ProfileImagePath = finalPath;
-                    Helper.Getdbcommand(this).Update(currentUser);
-                    LoadUserDataAsync();
-                }
-            }
+            // Launch using the NEW Format
+            _galleryLauncher.Launch(Intent.CreateChooser(intent, "Select Picture"));
         }
 
         private string CopyGalleryImageToApp(Android.Net.Uri uri)
@@ -468,6 +512,29 @@ namespace FinalProject331406710
             catch { return null; }
         }
 
-        public override bool OnSupportNavigateUp() { Finish(); return true; }
+        // --- NEW: LITE MEMORY MANAGEMENT ---
+        protected override void OnPause()
+        {
+            base.OnPause();
+            _googleMap?.StopAnimation();
+        }
+
+        protected override void OnDestroy()
+        {
+            if (_googleMap != null)
+            {
+                _googleMap.Clear();
+                _googleMap.Dispose();
+                _googleMap = null;
+            }
+            base.OnDestroy();
+            System.GC.Collect();
+        }
+
+        public override bool OnSupportNavigateUp()
+        {
+            Finish();
+            return true;
+        }
     }
 }

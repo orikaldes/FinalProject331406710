@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#336933">
+
+	<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#225522"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+	<ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+		<LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+			<TextView
+                android:text="Community Cards"
+                android:textColor="#CCCCCC"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+			<LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="20dp">
+				<ImageView android:id="@+id/trivBoard1" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+				<ImageView android:id="@+id/trivBoard2" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+				<ImageView android:id="@+id/trivBoard3" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+				<ImageView android:id="@+id/trivBoard4" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+				<ImageView android:id="@+id/trivBoard5" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+			</LinearLayout>
+
+			<LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+
+				<LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+					<TextView
+                        android:text="Hand A"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+					<LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+						<ImageView android:id="@+id/trivHandA1" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+						<ImageView android:id="@+id/trivHandA2" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+					</LinearLayout>
+
+					<Button
+                        android:id="@+id/btnGuessA"
+                        android:text="A Wins"
+                        android:backgroundTint="#006400"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+				</LinearLayout>
+
+				<LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+					<TextView
+                        android:text="Hand B"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+					<LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+						<ImageView android:id="@+id/trivHandB1" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+						<ImageView android:id="@+id/trivHandB2" style="@style/CardSlot" android:layout_width="50dp" android:layout_height="70dp" android:layout_margin="2dp" />
+					</LinearLayout>
+
+					<Button
+                        android:id="@+id/btnGuessB"
+                        android:text="B Wins"
+                        android:backgroundTint="#0000b3"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+				</LinearLayout>
+
+			</LinearLayout>
+
+			<Button
+                android:id="@+id/btnGuessSplit"
+                android:text="It's a Split (Tie)"
+                android:backgroundTint="#444444"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+
+			<Button
+                android:id="@+id/btnHint"
+                android:text="Show Hint (Costs Prize)"
+                android:backgroundTint="#DDAA00"
+                android:textColor="#000000"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+			<TextView
+                android:id="@+id/triviaFeedback"
+                android:text=""
+                android:textColor="#FFFF00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+			<Button
+                android:id="@+id/btnNextQuestion"
+                android:text="Next Hand >"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
