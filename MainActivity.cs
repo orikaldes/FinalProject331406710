@@ -18,18 +18,16 @@ namespace FinalProject331406710
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState); // Call base
+            base.OnCreate(savedInstanceState);
 
-            // 1. Set the content to YOUR layout
             SetContentView(Resource.Layout.activity_main);
 
-            // 2. Find the toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar); // 3. Set it as the action bar
+            SetSupportActionBar(toolbar);
 
-            SupportActionBar.Title = "Poker";
+            // FIX: Automatically pulls your app name from strings.xml!
+            SupportActionBar.Title = GetString(Resource.String.app_name);
 
-            // --- Your old code ---
             Button buttonGoToSignIn = FindViewById<Button>(Resource.Id.buttonGoToSignIn);
             Button buttonGoToSignUp = FindViewById<Button>(Resource.Id.buttonGoToSignUp);
 

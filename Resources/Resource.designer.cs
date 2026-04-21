@@ -7161,6 +7161,9 @@ namespace FinalProject331406710
 			// aapt resource value: 0x7F0F006E
 			public const int status_bar_notification_info_overflow = 2131689582;
 			
+			// aapt resource value: 0x7F0F006F
+			public const int welcome_message = 2131689583;
+			
 			static String()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
